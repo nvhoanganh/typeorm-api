@@ -25,19 +25,11 @@ export class CrudService {
   async updateOne(idToUpdate: number, p: BaseEntity): Promise<any> {
     const obj = await this.ormRepo.findOne(idToUpdate);
     if (obj) {
-      const update = {
+      return await this.ormRepo.save( {
         ...obj,
         ...p,
         dateUpdated: new Date(),
-      };
-
-      // Object.keys(p).forEach(k => {
-      //   // transfer , can't use spread ops because of the point data type
-      //   update[k] = p[k];
-      // });
-
-      console.log(`updating object`, update);
-      return await this.ormRepo.save(update);
+      });
     } else {
       throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
     }
