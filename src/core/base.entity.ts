@@ -1,25 +1,13 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Photo {
+export class BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ length: 500 })
-  name: string;
-
-  @Column('text')
-  description: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   dateCreated: Date;
 
-  @Column()
-  filename: string;
-
-  @Column('int')
-  views: number;
-
-  @Column()
-  isPublished: boolean;
+  @Column({ type: 'timestamp', nullable: true })
+  dateUpdated?: Date;
 }
